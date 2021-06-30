@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 	"orders-service/internal/domain/model"
+	restaurants2 "orders-service/internal/domain/restaurants"
 	"orders-service/internal/domain/users"
-	"orders-service/internal/restaurants"
 	"time"
 )
 
@@ -19,7 +19,7 @@ type Repository interface {
 
 type service struct {
 	repo        Repository
-	restaurants restaurants.Service
+	restaurants restaurants2.Service
 	users       users.Service
 }
 
