@@ -1,0 +1,17 @@
+{"1":{
+   "ID":1,
+   "NOMBRE":"Sopa huertana",
+   "INGREDIENTES":"Zanahoria,Puerro,Patata mediana,Cebolla"},
+ "2":{"ID":2,
+   "NOMBRE":"Croquetas de pollo y jamón",
+   "INGREDIENTES":"Harina de trigo,Pechuga de pollo,Jamón serrano,Fondo de carne"
+},"3":
+{
+   "ID":3,
+   "NOMBRE":"Ratatouille",
+   "INGREDIENTES":"Berenjena,Calabacín,Pimiento rojo,Cebolla"},
+    "4":{"ID":4,
+   "NOMBRE":"Albóndigas en salsa española",
+   "INGREDIENTES":"Carne picada de ternera,Tomate frito casero,Extracto de carne,Zanahoria rallada"
+}
+}
