@@ -1,12 +1,14 @@
 package com.github.lisomartinez.users.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    @JsonIgnore
+    val id: Long?,
 
     @Column(name = "userId", unique = true)
     val userId: Long,
@@ -14,5 +16,10 @@ class User(
     val lastName: String,
     val address: Address
 ) {
-
+     constructor(
+        userId: Long,
+        firstName: String,
+        lastName: String,
+        address: Address
+    ) : this(null, userId, firstName, lastName, address)
 }
