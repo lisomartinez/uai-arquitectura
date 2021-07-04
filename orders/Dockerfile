@@ -1,10 +1,11 @@
-#TODO: This is not working right now. It's only a remainder
-FROM golang:1.14-alpine AS build
+FROM golang:1.16-alpine AS builder
+USER root
+WORKDIR /builder
+ADD . /builder
+RUN go build -o orders .
 
-WORKDIR /src/
-COPY main.go go.* /src/
-RUN CGO_ENABLED=0 go build -o /bin/demo
-
-FROM scratch
-COPY --from=build /bin/demo /bin/demo
-ENTRYPOINT ["/bin/demo"]
+FROM alpine:3.14.0
+WORKDIR /app
+EXPOSE 8081
+COPY --from=builder /builder/orders .
+ENTRYPOINT ["/app/orders"]
