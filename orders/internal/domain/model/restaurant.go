@@ -6,5 +6,7 @@ type Menu struct {
 }
 
 type MenuItem struct {
-	ID uint64 `json:"id"`
+	ID          uint64 `json:"id"`
+	Name        string `json:"name"`
+	Ingredients string `json:"ingredients"`
 }

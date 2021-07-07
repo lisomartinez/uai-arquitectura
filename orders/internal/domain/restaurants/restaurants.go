@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	getUrl = ""
+	getUrl = "http://restaurant-service/restaurants/%v/menu"
 )
 
 type Service interface {

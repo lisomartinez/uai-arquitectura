@@ -2,21 +2,41 @@
   {
     "id": 1,
     "name": "Sopa huertana",
-    "ingredients": "Zanahoria,Puerro,Patata mediana,Cebolla"
+    "ingredients": [
+      "Zanahoria",
+      "Puerro",
+      "Patata mediana",
+      "Cebolla"
+    ]
   },
   {
     "id": 2,
     "name": "Croquetas de pollo y jamón",
-    "ingredients": "Harina de trigo,Pechuga de pollo,Jamón serrano,Fondo de carne"
+    "ingredients": [
+      "Harina de trigo",
+      "Pechuga de pollo",
+      "Jamón serrano",
+      "Fondo de carne"
+    ]
   },
   {
     "id": 3,
     "name": "Ratatouille",
-    "ingredients": "Berenjena,Calabacín,Pimiento rojo,Cebolla"
+    "ingredients": [
+      "Berenjena",
+      "Calabacín",
+      "Pimiento rojo",
+      "Cebolla"
+    ]
   },
   {
     "id": 4,
     "name": "Albóndigas en salsa española",
-    "ingredients": "Carne picada de ternera,Tomate frito casero,Extracto de carne,Zanahoria rallada"
+    "ingredients": [
+      "Carne picada de ternera",
+      "Tomate frito casero",
+      "Extracto de carne",
+      "Zanahoria rallada"
+    ]
   }
 ]
