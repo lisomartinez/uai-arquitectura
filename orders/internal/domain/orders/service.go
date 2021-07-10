@@ -7,7 +7,10 @@ import (
 	"orders-service/internal/domain/model"
 	"orders-service/internal/domain/restaurants"
 	"orders-service/internal/domain/users"
+	"orders-service/internal/tools"
 	"time"
+
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Service interface {
@@ -27,7 +30,13 @@ type service struct {
 }
 
 func (s service) GetOrder(ctx context.Context, orderId uint64) (*model.Order, error) {
-	return s.repo.GetOrder(ctx, orderId)
+	order, err := s.repo.GetOrder(ctx, orderId)
+
+	if err == mongo.ErrNoDocuments {
+		return nil, tools.NewCustom(404, fmt.Sprintf("document not found: %v", orderId))
+	}
+
+	return order, err
 }
 
 func (s service) CreateOrder(ctx context.Context, createOrderRequest *model.CreateOrderRequest) (*model.Order, error) {

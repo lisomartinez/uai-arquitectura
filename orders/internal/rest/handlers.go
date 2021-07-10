@@ -65,11 +65,13 @@ func (oh *OrdersHandler) getOrder(w http.ResponseWriter, r *http.Request) {
 	order, err := oh.service.GetOrder(ctx, id)
 
 	var responseError tools.Custom
-	if errors.As(err, &responseError) {
+
+	if err == nil {
+		WebResponse(w, 200, order)
+	} else if errors.As(err, &responseError) {
 		ErrorResponse(w, responseError.Status(), err.Error())
 	} else {
 		ErrorResponse(w, 500, "internal server error")
 	}
 
-	WebResponse(w, 200, order)
 }
