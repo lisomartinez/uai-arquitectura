@@ -13,12 +13,12 @@ import (
 )
 
 var (
-	CONNECTIONSTRING = os.Getenv("AZ_COSMOS_CONNECTION_STRING")
+	CONNECTIONSTRING = os.Getenv("AZ_COSMOS_ORDER_CONNECTION_STRING")
 )
 
 const (
-	DB               = "orders"
-	ORDERS           = "orders"
+	DB     = "orders"
+	ORDERS = "orders"
 )
 
 type Repository interface {
