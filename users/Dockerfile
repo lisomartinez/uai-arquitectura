@@ -1,12 +1,17 @@
-FROM gradle:7-jdk11-openj9 AS build
-WORKDIR /opt/app
-COPY ./ /opt/app/
-RUN gradle build --stacktrace
+FROM adoptopenjdk/openjdk11:alpine AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN ./gradlew build --no-daemon 
 
-FROM openjdk:11
+FROM adoptopenjdk/openjdk11:alpine
 
-LABEL maintaner="lisandromartinez@gmail.com"
-
-COPY --from=build /opt/app/users/build/libs/user-service.0.0.1-SNAPSHOT.jar  /opt/app/users.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/opt/app/users.jar"]
+
+RUN mkdir /app
+ARG AZ_DATABASE_NAME
+ARG AZ_SQL_SERVER_PASSWORD
+ENV AZ_DATABASE_NAME=${AZ_DATABASE_NAME}
+ENV AZ_SQL_SERVER_PASSWORD=${AZ_SQL_SERVER_PASSWORD}
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
+
+ENTRYPOINT ["java", "-jar","/app/spring-boot-application.jar"]

@@ -2,7 +2,6 @@ package orders
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"orders-service/internal/domain/model"
 	"orders-service/internal/domain/restaurants"
@@ -49,13 +48,13 @@ func (s service) CreateOrder(ctx context.Context, createOrderRequest *model.Crea
 	err = validateUser(ctx, createOrderRequest, s)
 
 	if err != nil {
-		return nil, err
+		return nil, tools.NewCustom(400, fmt.Sprintf("invalid user: %v", err))
 	}
 
 	err = validateOrder(menu, createOrderRequest)
 
 	if err != nil {
-		return nil, err
+		return nil, tools.NewCustom(400, fmt.Sprintf("invalid order: %v", err))
 	}
 
 	order := &model.Order{
@@ -72,14 +71,10 @@ func (s service) CreateOrder(ctx context.Context, createOrderRequest *model.Crea
 }
 
 func validateUser(ctx context.Context, createOrderRequest *model.CreateOrderRequest, s service) error {
-	user, err := s.users.GetUser(ctx, createOrderRequest.UserID)
+	_, err := s.users.GetUser(ctx, createOrderRequest.UserID)
 
 	if err != nil {
-		return errors.New("user not found: " + err.Error())
-	}
-
-	if user == nil {
-		return errors.New("user not found")
+		return err
 	}
 
 	return nil
@@ -104,7 +99,7 @@ func validateOrder(menu *model.Menu, createOrderRequest *model.CreateOrderReques
 	if len(notFound) == 0 {
 		return nil
 	} else {
-		return errors.New(fmt.Sprintf("missing items: %v", notFound))
+		return fmt.Errorf("missing items: %v", notFound)
 	}
 }
 

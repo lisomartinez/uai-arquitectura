@@ -37,7 +37,7 @@ func main() {
 		}
 	}
 
-	port := ":8080"
+	port := ":8081"
 	log.Print(fmt.Sprint("Starting server at port", port))
 	log.Fatal(http.ListenAndServe(port, router))
 }

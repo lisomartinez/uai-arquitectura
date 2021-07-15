@@ -17,8 +17,8 @@ app.use('/restaurants', restaurantRoutes)
 export const start = async () => {
   try {
     await connect()
-    app.listen(3000, () => {
-      console.log(`REST API on http://localhost:3000/`)
+    app.listen(8082, () => {
+      console.log(`REST API on http://localhost:8082/`)
     })
   } catch (e) {
     console.error(e)
