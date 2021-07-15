@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"orders-service/internal/domain/model"
 	"orders-service/internal/tools"
@@ -42,7 +43,7 @@ func (oh *OrdersHandler) createOrder(w http.ResponseWriter, r *http.Request) {
 	if errors.As(err, &responseError) {
 		ErrorResponse(w, responseError.Status(), err.Error())
 	} else {
-		ErrorResponse(w, 500, "internal server error")
+		ErrorResponse(w, 500, fmt.Sprintf("internal server error %v", err))
 	}
 
 	WebResponse(w, 201, order)

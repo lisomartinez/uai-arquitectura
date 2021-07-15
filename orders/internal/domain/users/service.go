@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	getUrl = "http://users-service/users/%s"
+	getUrl = "http://users-service:8080/users/%v"
 )
 
 type Service interface {

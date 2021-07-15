@@ -3,6 +3,7 @@ package orders
 import (
 	"context"
 	"fmt"
+	"log"
 	"orders-service/internal/domain/model"
 	"orders-service/internal/domain/restaurants"
 	"orders-service/internal/domain/users"
@@ -67,6 +68,7 @@ func (s service) CreateOrder(ctx context.Context, createOrderRequest *model.Crea
 		Version:      0,
 	}
 
+	log.Println(order)
 	return s.repo.Save(ctx, order)
 }
 

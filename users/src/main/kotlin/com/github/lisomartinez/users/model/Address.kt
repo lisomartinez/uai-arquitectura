@@ -5,14 +5,10 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class Address(
-    @Column(name = "address_street")
-    val street: String,
-    @Column(name = "address_number")
-    val number: String,
-    @Column(name = "address_city")
-    val city: String,
-    @Column(name = "address_country")
-    val country: String
+        @Column(name = "address_street") val street: String,
+        @Column(name = "address_number") val number: String,
+        @Column(name = "address_city") val city: String,
+        @Column(name = "address_country") val country: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

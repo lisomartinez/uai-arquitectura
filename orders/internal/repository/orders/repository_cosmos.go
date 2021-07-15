@@ -41,11 +41,10 @@ func (c cosmosDbRepository) Save(ctx context.Context, order *model.Order) (*mode
 
 	collection := client.Database(DB).Collection(ORDERS)
 
-	result, err := collection.InsertOne(ctx, order)
+	_, err = collection.InsertOne(ctx, order)
 	if err != nil {
 		return nil, err
 	}
-	order.ID = result.InsertedID.(string)
 
 	return order, nil
 }

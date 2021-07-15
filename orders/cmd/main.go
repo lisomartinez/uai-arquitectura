@@ -26,10 +26,6 @@ func main() {
 	router := chi.NewRouter()
 	rest.RegisterOrderRoutes(router, handler)
 
-	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(200)
-	})
-
 	log.Print("Availability routes")
 	for _, a := range router.Routes() {
 		for _, b := range a.SubRoutes.Routes() {
