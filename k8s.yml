@@ -16,7 +16,7 @@ spec:
         app: order-service
     spec:
       containers:
-      - image: iamnoah4real/saywhat
+      - image: uaiarch.azurecr.io/orders:1
         name: order-service
         livenessProbe:
           httpGet:
@@ -48,7 +48,7 @@ spec:
         app: restaurant-service
     spec:
       containers:
-      - image: iamnoah4real/saywhat
+      - image: uaiarch.azurecr.io/menu:1
         name: restaurant-service
         livenessProbe:
           httpGet:
@@ -80,7 +80,7 @@ spec:
         app: users-service
     spec:
       containers:
-      - image: iamnoah4real/saywhat
+      - image: uaiarch.azurecr.io/users:1
         name: users-service
         livenessProbe:
           httpGet:
