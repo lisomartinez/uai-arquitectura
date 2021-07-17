@@ -8,7 +8,7 @@ export const app = express()
 app.use(json())
 app.use(urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
   res.sendStatus(200)
 })
 

@@ -20,14 +20,14 @@ spec:
         name: order-service
         livenessProbe:
           httpGet:
-            path: /health
-            port: 8080
+            path: /
+            port: 8081
           initialDelaySeconds: 30
           periodSeconds: 60
           timeoutSeconds: 30
           failureThreshold: 2
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
           protocol: TCP
 ---
 apiVersion: apps/v1
@@ -53,13 +53,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: 8080
+            port: 8082
           initialDelaySeconds: 30
           periodSeconds: 60
           timeoutSeconds: 30
           failureThreshold: 2
         ports:
-        - containerPort: 8080
+        - containerPort: 8082
           protocol: TCP
 ---
 apiVersion: apps/v1
@@ -103,8 +103,8 @@ spec:
     app: order-service
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 8080
+    port: 8081
+    targetPort: 8081
 ---
 apiVersion: v1
 kind: Service
@@ -115,8 +115,8 @@ spec:
     app: restaurant-service
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 8080
+    port: 8082
+    targetPort: 8082
 ---
 apiVersion: v1
 kind: Service
@@ -127,13 +127,13 @@ spec:
     app: users-service
   ports:
   - protocol: TCP
-    port: 80
+    port: 8080
     targetPort: 8080
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: service1
+  name: gateway-service
   annotations:
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/backend-path-prefix: "/"
@@ -144,12 +144,12 @@ spec:
       - path: /order-service
         backend:
           serviceName: order-service
-          servicePort: 80
+          servicePort: 8081
       - path: /restaurant-service
         backend:
           serviceName: restaurant-service
-          servicePort: 80
+          servicePort: 8082
       - path: /users-service
         backend:
           serviceName: users-service
-          servicePort: 80
+          servicePort: 8080

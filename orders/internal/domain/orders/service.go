@@ -3,7 +3,7 @@ package orders
 import (
 	"context"
 	"fmt"
-	"log"
+	"math/rand"
 	"orders-service/internal/domain/model"
 	"orders-service/internal/domain/restaurants"
 	"orders-service/internal/domain/users"
@@ -65,18 +65,22 @@ func (s service) CreateOrder(ctx context.Context, createOrderRequest *model.Crea
 		Items:        menu.Items,
 		DateCreated:  time.Now(),
 		LastUpdated:  time.Now(),
+		Total:        200 + rand.Float64()*300,
 		Version:      0,
 	}
 
-	log.Println(order)
 	return s.repo.Save(ctx, order)
 }
 
 func validateUser(ctx context.Context, createOrderRequest *model.CreateOrderRequest, s service) error {
-	_, err := s.users.GetUser(ctx, createOrderRequest.UserID)
+	user, err := s.users.GetUser(ctx, createOrderRequest.UserID)
 
 	if err != nil {
 		return err
+	}
+
+	if user == nil || user.UserID != createOrderRequest.UserID {
+		return fmt.Errorf("invalid user for %v", createOrderRequest)
 	}
 
 	return nil

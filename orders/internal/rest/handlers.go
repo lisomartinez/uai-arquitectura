@@ -40,13 +40,15 @@ func (oh *OrdersHandler) createOrder(w http.ResponseWriter, r *http.Request) {
 	order, err := oh.service.CreateOrder(ctx, createOrderRequest)
 
 	var responseError tools.Custom
-	if errors.As(err, &responseError) {
+
+	if err == nil {
+		WebResponse(w, 201, order)
+	} else if errors.As(err, &responseError) {
 		ErrorResponse(w, responseError.Status(), err.Error())
 	} else {
 		ErrorResponse(w, 500, fmt.Sprintf("internal server error %v", err))
 	}
 
-	WebResponse(w, 201, order)
 }
 
 func (oh *OrdersHandler) getOrder(w http.ResponseWriter, r *http.Request) {

@@ -25,6 +25,7 @@ func main() {
 
 	router := chi.NewRouter()
 	rest.RegisterOrderRoutes(router, handler)
+	rest.RegisterHealthRoutes(router)
 
 	log.Print("Availability routes")
 	for _, a := range router.Routes() {
