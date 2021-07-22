@@ -28,8 +28,7 @@ users: ./gradlew bootRun
 
 
 ```bash
-docker login --username uaiarch --password W7Yt+8qXrK6JEssZMrHH6XGlfDB14gPc uaiarch.azurecr.io
-
+docker login --username uaiarch --password XXXXX uaiarch.azurecr.io
 
 docker build --build-arg AZ_COSMOS_MENU_CONNECTION_STRING=$AZ_COSMOS_MENU_CONNECTION_STRING  --tag uaiarch.azurecr.io/menu:1 .
 
@@ -129,3 +128,57 @@ VALUES (1, 'Pedro', 'Sanchez', 'arenales', '2112', 'caba', 'argentina')
 }
 ```
 
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+# Use Helm to deploy an NGINX ingress controller
+helm install nginx-ingress ingress-nginx/ingress-nginx \
+    --namespace uai-final \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
+
+``` yaml
+
+az login
+az account set --subscription 7b441710-fd92-4a1b-86e7-05c015958478cv
+az aks get-credentials --resource-group uai-architecture --name uai_architecture
+
+kubectl apply -f ./ingress.yml
+kubectl apply -f ./k8s.yml
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /orders
+        pathType: Prefix
+        backend:
+          service:
+            name: order-service
+            port:
+              number: 8081
+      - path: /restaurants
+        pathType: Prefix
+        backend:
+          service:
+            name: restaurant-service
+            port:
+              number: 8082
+      - path: /users
+        pathType: Prefix
+        backend:
+          service:
+            name: users-service
+            port:
+              number: 8080
+
+``` 

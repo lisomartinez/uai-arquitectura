@@ -20,7 +20,7 @@ spec:
         name: order-service
         livenessProbe:
           httpGet:
-            path: /
+            path: /health
             port: 8081
           initialDelaySeconds: 30
           periodSeconds: 60
@@ -129,27 +129,3 @@ spec:
   - protocol: TCP
     port: 8080
     targetPort: 8080
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: gateway-service
-  annotations:
-    kubernetes.io/ingress.class: azure/application-gateway
-    appgw.ingress.kubernetes.io/backend-path-prefix: "/"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /order-service
-        backend:
-          serviceName: order-service
-          servicePort: 8081
-      - path: /restaurant-service
-        backend:
-          serviceName: restaurant-service
-          servicePort: 8082
-      - path: /users-service
-        backend:
-          serviceName: users-service
-          servicePort: 8080

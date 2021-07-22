@@ -1,20 +1,20 @@
 version: "3"
 services:
   users-service:
-    image: users:1
+    image: uaiarch.azurecr.io/users:1
 
     ports:
       - "8080:8080"
 
   restaurant-service:
     # image to fetch from docker hub
-    image: menu:1
+    image: uaiarch.azurecr.io/menu:1
 
     ports:
       - "8082:8082"
 
   orders-service:
-    image: orders:1
+    image: uaiarch.azurecr.io/orders:1
 
     ports:
       - "8081:8081"
