@@ -1,4 +1,4 @@
-# HACER EXPORTS EN LA TERMINAL (en la misma que vas a ejecutar el comando)
+# HACER EXPORTS EN LA TERMINAL
 
 
 # SQL Usuarios
@@ -20,9 +20,11 @@ export AZ_COSMOS_MENU_CONNECTION_STRING=
 ```
 # EJECUTAR LOCAL
 
+```
 menu: npm run dev
 orders: go run ./cmd/main.go
 users: ./gradlew bootRun
+```
 
 # DOCKER
 
@@ -142,7 +144,7 @@ helm install nginx-ingress ingress-nginx/ingress-nginx \
 ``` yaml
 
 az login
-az account set --subscription 7b441710-fd92-4a1b-86e7-05c015958478cv
+az account set --subscription XXXXXXXX
 az aks get-credentials --resource-group uai-architecture --name uai_architecture
 
 kubectl apply -f ./ingress.yml
